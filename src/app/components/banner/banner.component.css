@@ -1,0 +1,29 @@
+.banner {
+  position: relative;
+  top: -20px;
+  height: 50px;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  color: white;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.banner h2 {
+  margin: 0;
+  font-size: 1.2em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.banner:hover {
+  width: 102%;
+  height: 60px;
+  background: linear-gradient(135deg, #ee5a24 0%, #c0392b 100%);
+  position: relative;
+  left: -15px;
+  transform: scale(1.02);
+}

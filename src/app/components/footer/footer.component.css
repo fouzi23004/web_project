@@ -1,0 +1,33 @@
+footer {
+  background-color: #8b4513;
+  text-align: center;
+  padding: 20px 10px;
+  color: #fff5e1;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-top: 30px;
+  border-radius: 5px 5px 0 0;
+  clear: both;
+}
+
+footer p {
+  margin: 10px 0;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.social-icons img {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  filter: brightness(0) invert(1);
+}
+
+.social-icons img:hover {
+  transform: scale(1.2);
+}

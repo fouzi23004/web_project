@@ -1,0 +1,137 @@
+/*Ala Eddine Karchoud*/
+/*14051634*/
+/*Mi 2 C*/
+
+body {
+  background-color: #f4f4f4;
+  width: 1250px;
+  font-family: arial, sans-serif;
+  margin: 5px auto;
+}
+header {
+  background-color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-bottom: 0px;
+}
+header h1 {
+  text-align: center;
+  color: white;
+}
+header ul {
+  display: flex;
+  justify-content: center;
+}
+header ul li {
+  list-style-type: none;
+  margin-left: 10px;
+}
+nav {
+  background-color: #c2f1bc;
+  width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  height: 40px;
+}
+li a:hover {
+  color: #c16e10;
+  text-decoration: underline;
+}
+.banner {
+  position: relative;
+  top: -20px;
+  height: 50px;
+  background-color: #4caf50;
+  color: white;
+  text-align: center;
+}
+
+.banner:hover {
+  width: 102%;
+  height: 60px;
+  background-color: #db2e0b;
+  position: relative;
+  left: -15px;
+}
+.sidebar ul {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  list-style: circle;
+}
+
+.sidebar {
+  background-color: white;
+  float: left;
+  text-align: center;
+  border-radius: 10px;
+  width: 200px;
+}
+.sidebar a:visited {
+  color: #5d65d4;
+  text-decoration: underline;
+}
+.sidebar a {
+  color: rgb(87, 184, 100);
+  text-decoration: solid;
+}
+.sidebar a:hover {
+  color: #0e7911;
+}
+.sidebar h2:hover {
+  color: #0b4e0f;
+  font-size: 30px;
+}
+
+.main-content {
+  margin-left: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+article {
+  background-color: white;
+  width: 250px;
+  height: 500px;
+  margin: 10px;
+  border-radius: 10px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  box-shadow: 2px 2px black;
+}
+article p {
+  padding-top: 20px;
+}
+article img {
+  border-radius: 10px;
+  width: 230px;
+  height: 300px;
+  box-shadow: 2px 2px black;
+  object-fit: cover;
+}
+article button {
+  width: 90%;
+  padding-bottom: 5px;
+  padding-left: auto;
+  padding-right: auto;
+  background-color: #333;
+  color: white;
+}
+article button:hover {
+  background-color: #c16e10;
+}
+article:hover {
+  width: 270px;
+  height: 520px;
+  position: relative;
+  left: -5px;
+}
+footer {
+  background-color: #333;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: white;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

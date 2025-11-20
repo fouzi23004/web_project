@@ -1,0 +1,50 @@
+.sidebar {
+  background-color: white;
+  float: left;
+  text-align: center;
+  border-radius: 10px;
+  width: 200px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+  color: #8b4513;
+  font-family: 'Georgia', serif;
+  transition: all 0.3s ease;
+}
+
+.sidebar h2:hover {
+  color: #d2691e;
+  font-size: 30px;
+}
+
+.sidebar ul {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 8px 0;
+}
+
+.sidebar a {
+  color: #8b4513;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: block;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.sidebar a:hover {
+  color: #d2691e;
+  background-color: #f4e4c1;
+  text-decoration: underline;
+}
+
+.sidebar a:visited {
+  color: #704214;
+}

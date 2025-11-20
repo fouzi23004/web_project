@@ -1,0 +1,8 @@
+<footer>
+  <p>&copy; {{ currentYear }} Pâtisserie Délice. Tous droits réservés.</p>
+  <div class="social-icons">
+    <img *ngFor="let social of socialLinks"
+         [src]="social.icon"
+         [alt]="social.name" />
+  </div>
+</footer>
