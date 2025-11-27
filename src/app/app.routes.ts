@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
+import { LoginComponent } from './components/auth/login/login.component';
+import { SignupComponent } from './components/auth/signup/signup.component';
 
 export const routes: Routes = [
-  // Add your routes here as needed
-  // { path: '', component: HomeComponent },
-  // { path: 'produits', component: ProductsComponent },
-  // etc.
+    { path: 'login', component: LoginComponent },
+    { path: 'signup', component: SignupComponent },
+    { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];

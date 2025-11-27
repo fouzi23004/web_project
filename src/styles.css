@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500&display=swap');
+
 /* Global Styles for Pâtisserie Délice */
 
 * {
@@ -5,10 +7,9 @@
 }
 
 body {
-  background-color: #fff5e1;
-  width: 1250px;
-  font-family: Arial, sans-serif;
-  margin: 5px auto;
+  background-color: #F5EFE6; /* A light, creamy background */
+  font-family: 'Montserrat', sans-serif; /* Using Montserrat as the default font */
+  margin: 0;
   padding: 0;
 }
 
