@@ -1,0 +1,22 @@
+.products-page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.page-title {
+  color: #8b4513;
+  font-family: 'Georgia', serif;
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 30px;
+  border-bottom: 3px solid #d2691e;
+  padding-bottom: 15px;
+}
+
+.products-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}

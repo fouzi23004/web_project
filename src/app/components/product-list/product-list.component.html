@@ -4,7 +4,7 @@
     <h3>{{ pastry.name }}</h3>
     <p class="category">{{ pastry.category }}</p>
     <p class="description">{{ pastry.description }}</p>
-    <p class="price">{{ pastry.price | currency:'EUR':'symbol':'1.2-2':'fr' }}</p>
+    <p class="price">{{ pastry.price | currency:'EUR':'symbol':'1.2-2' }}</p>
     <button (click)="addToCart(pastry)">Ajouter au panier</button>
   </article>
 </section>

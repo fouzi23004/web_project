@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { BannerComponent } from './components/banner/banner.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { ProductListComponent } from './components/product-list/product-list.component';
 import { FooterComponent } from './components/footer/footer.component';
 
 @Component({
@@ -15,8 +13,6 @@ import { FooterComponent } from './components/footer/footer.component';
     RouterOutlet,
     HeaderComponent,
     BannerComponent,
-    SidebarComponent,
-    ProductListComponent,
     FooterComponent
   ],
   templateUrl: './app.component.html',

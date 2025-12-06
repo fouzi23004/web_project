@@ -37,12 +37,19 @@
   display: block;
   padding: 5px;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .sidebar a:hover {
   color: #d2691e;
   background-color: #f4e4c1;
   text-decoration: underline;
+}
+
+.sidebar a.active {
+  background-color: #8b4513;
+  color: white;
+  font-weight: bold;
 }
 
 .sidebar a:visited {

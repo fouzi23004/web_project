@@ -16,7 +16,10 @@ export class ProductListComponent implements OnInit {
   constructor(private pastryService: PastryService) {}
 
   ngOnInit(): void {
-    this.pastries = this.pastryService.getPastries();
+    // Subscribe to category changes (will trigger immediately with initial value)
+    this.pastryService.selectedCategory$.subscribe(() => {
+      this.pastries = this.pastryService.getFilteredPastries();
+    });
   }
 
   addToCart(pastry: Pastry): void {

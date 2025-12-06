@@ -1,0 +1,21 @@
+<div class="home-container">
+  <section class="welcome-section">
+    <h1>Bienvenue chez Pâtisserie Délice</h1>
+    <p class="subtitle">Découvrez nos délicieuses pâtisseries artisanales, préparées avec passion et savoir-faire</p>
+  </section>
+
+  <section class="top-sales-section">
+    <h2>Nos Meilleures Ventes</h2>
+    <div class="products-grid">
+      <article *ngFor="let pastry of topSalesPastries" class="product-card">
+        <div class="top-sales-badge">Top Vente</div>
+        <img [src]="pastry.image" [alt]="pastry.name" />
+        <h3>{{ pastry.name }}</h3>
+        <p class="category">{{ pastry.category }}</p>
+        <p class="description">{{ pastry.description }}</p>
+        <p class="price">{{ pastry.price | currency:'EUR':'symbol':'1.2-2' }}</p>
+        <button (click)="addToCart(pastry)">Ajouter au panier</button>
+      </article>
+    </div>
+  </section>
+</div>

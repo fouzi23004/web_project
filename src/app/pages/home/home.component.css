@@ -1,0 +1,139 @@
+.home-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.welcome-section {
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #fff5e1 0%, #f4e4c1 100%);
+  border-radius: 10px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-section h1 {
+  color: #8b4513;
+  font-family: 'Georgia', serif;
+  font-size: 2.5em;
+  margin: 0 0 15px 0;
+}
+
+.welcome-section .subtitle {
+  color: #704214;
+  font-size: 1.2em;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.top-sales-section {
+  margin-bottom: 40px;
+}
+
+.top-sales-section h2 {
+  color: #8b4513;
+  font-family: 'Georgia', serif;
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 30px;
+  border-bottom: 3px solid #d2691e;
+  padding-bottom: 15px;
+}
+
+.products-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+article.product-card {
+  background-color: white;
+  width: 260px;
+  min-height: 520px;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+article.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.top-sales-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.75em;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+article img {
+  border-radius: 10px;
+  width: 100%;
+  height: 200px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  object-fit: cover;
+  margin-top: 10px;
+}
+
+article h3 {
+  color: #8b4513;
+  font-family: 'Georgia', serif;
+  margin: 15px 0 5px 0;
+  font-size: 1.3em;
+}
+
+article .category {
+  color: #d2691e;
+  font-size: 0.9em;
+  font-style: italic;
+  margin: 5px 0;
+}
+
+article .description {
+  padding-top: 10px;
+  flex-grow: 1;
+  font-size: 0.95em;
+  line-height: 1.4;
+  color: #555;
+}
+
+article .price {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #2c7744;
+  margin: 10px 0;
+}
+
+article button {
+  width: 100%;
+  padding: 12px;
+  background-color: #8b4513;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+article button:hover {
+  background-color: #d2691e;
+  transform: scale(1.05);
+}

@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Pastry } from '../models/pastry.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PastryService {
+  private selectedCategorySubject = new BehaviorSubject<string | null>(null);
+  public selectedCategory$: Observable<string | null> = this.selectedCategorySubject.asObservable();
   private pastries: Pastry[] = [
     {
       id: 1,
@@ -12,7 +15,8 @@ export class PastryService {
       description: 'Croissant français traditionnel, croustillant et feuilleté, préparé avec du beurre pur.',
       price: 2.50,
       image: 'assets/images/croissant.jpg',
-      category: 'Viennoiseries'
+      category: 'Viennoiseries',
+      topSales: true
     },
     {
       id: 2,
@@ -20,7 +24,8 @@ export class PastryService {
       description: 'Pâte à choux fourrée de crème pâtissière au chocolat et recouverte de glaçage chocolat.',
       price: 4.00,
       image: 'assets/images/eclair.jpg',
-      category: 'Pâtisseries'
+      category: 'Pâtisseries',
+      topSales: true
     },
     {
       id: 3,
@@ -36,7 +41,8 @@ export class PastryService {
       description: 'Assortiment de 6 macarons aux saveurs variées: vanille, chocolat, framboise, pistache.',
       price: 12.00,
       image: 'assets/images/macarons.jpg',
-      category: 'Pâtisseries'
+      category: 'Pâtisseries',
+      topSales: true
     },
     {
       id: 5,
@@ -52,7 +58,8 @@ export class PastryService {
       description: 'Pâte feuilletée croustillante alternée avec de la crème pâtissière vanille.',
       price: 4.50,
       image: 'assets/images/millefeuille.jpg',
-      category: 'Pâtisseries'
+      category: 'Pâtisseries',
+      topSales: true
     },
     {
       id: 7,
@@ -98,5 +105,21 @@ export class PastryService {
 
   getPastryById(id: number): Pastry | undefined {
     return this.pastries.find(p => p.id === id);
+  }
+
+  getTopSalesPastries(): Pastry[] {
+    return this.pastries.filter(p => p.topSales === true);
+  }
+
+  setSelectedCategory(category: string | null): void {
+    this.selectedCategorySubject.next(category);
+  }
+
+  getFilteredPastries(): Pastry[] {
+    const selectedCategory = this.selectedCategorySubject.value;
+    if (selectedCategory) {
+      return this.pastries.filter(p => p.category === selectedCategory);
+    }
+    return this.pastries;
   }
 }

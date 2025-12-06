@@ -1,8 +1,11 @@
 <aside class="sidebar">
   <h2>Catégories</h2>
   <ul>
+    <li>
+      <a (click)="showAllProducts()" [class.active]="selectedCategory === null">Tous les produits</a>
+    </li>
     <li *ngFor="let category of categories">
-      <a href="#">{{ category }}</a>
+      <a (click)="selectCategory(category)" [class.active]="selectedCategory === category">{{ category }}</a>
     </li>
   </ul>
 </aside>

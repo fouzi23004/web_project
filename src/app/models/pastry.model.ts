@@ -5,4 +5,5 @@ export interface Pastry {
   price: number;
   image: string;
   category: string;
+  topSales?: boolean;
 }
