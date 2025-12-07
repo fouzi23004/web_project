@@ -1,21 +1,29 @@
 <div class="signup-container">
   <div class="signup-form">
-    <h2>Sign Up</h2>
-    <form>
+    <h2>Inscription</h2>
+
+    <div *ngIf="errorMessage" class="alert alert-error">{{ errorMessage }}</div>
+    <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Nom complet</label>
+        <input type="text" id="name" name="name" [(ngModel)]="name" required>
+      </div>
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
+        <input type="email" id="email" name="email" [(ngModel)]="email" required>
       </div>
       <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" name="password" [(ngModel)]="password" required>
       </div>
       <div class="form-group">
-        <label for="confirm-password">Confirm Password</label>
-        <input type="password" id="confirm-password" name="confirm-password" required>
+        <label for="confirm-password">Confirmer le mot de passe</label>
+        <input type="password" id="confirm-password" name="confirm-password" [(ngModel)]="confirmPassword" required>
       </div>
-      <button type="submit">Sign Up</button>
+      <button type="submit">S'inscrire</button>
     </form>
-    <p>Already have an account? <a routerLink="/login">Log in</a></p>
+    <p>Vous avez déjà un compte? <a routerLink="/login">Se connecter</a></p>
   </div>
 </div>

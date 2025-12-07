@@ -6,9 +6,13 @@ import { Pastry } from '../models/pastry.model';
   providedIn: 'root'
 })
 export class PastryService {
+  private readonly PASTRIES_STORAGE_KEY = 'patisserie_products';
   private selectedCategorySubject = new BehaviorSubject<string | null>(null);
   public selectedCategory$: Observable<string | null> = this.selectedCategorySubject.asObservable();
-  private pastries: Pastry[] = [
+  private pastries: Pastry[] = [];
+
+  // Default pastries to initialize local storage
+  private defaultPastries: Pastry[] = [
     {
       id: 1,
       name: 'Croissant au Beurre',
@@ -89,7 +93,26 @@ export class PastryService {
     'Biscuits'
   ];
 
-  constructor() { }
+  constructor() {
+    this.loadPastriesFromStorage();
+  }
+
+  // Load pastries from local storage
+  private loadPastriesFromStorage(): void {
+    const pastriesJson = localStorage.getItem(this.PASTRIES_STORAGE_KEY);
+    if (pastriesJson) {
+      this.pastries = JSON.parse(pastriesJson);
+    } else {
+      // Initialize with default pastries
+      this.pastries = [...this.defaultPastries];
+      this.savePastriesToStorage();
+    }
+  }
+
+  // Save pastries to local storage
+  private savePastriesToStorage(): void {
+    localStorage.setItem(this.PASTRIES_STORAGE_KEY, JSON.stringify(this.pastries));
+  }
 
   getPastries(): Pastry[] {
     return this.pastries;
@@ -121,5 +144,44 @@ export class PastryService {
       return this.pastries.filter(p => p.category === selectedCategory);
     }
     return this.pastries;
+  }
+
+  // Add a new pastry
+  addPastry(pastry: Omit<Pastry, 'id'>): Pastry {
+    const newId = this.pastries.length > 0
+      ? Math.max(...this.pastries.map(p => p.id)) + 1
+      : 1;
+    const newPastry: Pastry = { ...pastry, id: newId };
+    this.pastries.push(newPastry);
+    this.savePastriesToStorage();
+    return newPastry;
+  }
+
+  // Update a pastry
+  updatePastry(id: number, updatedPastry: Partial<Pastry>): boolean {
+    const index = this.pastries.findIndex(p => p.id === id);
+    if (index !== -1) {
+      this.pastries[index] = { ...this.pastries[index], ...updatedPastry };
+      this.savePastriesToStorage();
+      return true;
+    }
+    return false;
+  }
+
+  // Delete a pastry
+  deletePastry(id: number): boolean {
+    const index = this.pastries.findIndex(p => p.id === id);
+    if (index !== -1) {
+      this.pastries.splice(index, 1);
+      this.savePastriesToStorage();
+      return true;
+    }
+    return false;
+  }
+
+  // Reset to default pastries
+  resetToDefaults(): void {
+    this.pastries = [...this.defaultPastries];
+    this.savePastriesToStorage();
   }
 }

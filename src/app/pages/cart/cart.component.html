@@ -1,0 +1,45 @@
+<div class="cart-container">
+  <h1 class="cart-title">Mon Panier</h1>
+
+  <div *ngIf="cartItems.length === 0" class="empty-cart">
+    <p>Votre panier est vide</p>
+    <button (click)="continueShopping()" class="continue-btn">Continuer mes achats</button>
+  </div>
+
+  <div *ngIf="cartItems.length > 0" class="cart-content">
+    <div class="cart-items">
+      <div *ngFor="let item of cartItems" class="cart-item">
+        <img [src]="item.pastry.image" [alt]="item.pastry.name" class="item-image">
+        <div class="item-details">
+          <h3>{{ item.pastry.name }}</h3>
+          <p class="item-category">{{ item.pastry.category }}</p>
+          <p class="item-price">{{ item.pastry.price | currency:'EUR':'symbol':'1.2-2' }}</p>
+        </div>
+        <div class="item-quantity">
+          <button (click)="decreaseQuantity(item.pastry.id)" class="qty-btn">-</button>
+          <span class="quantity">{{ item.quantity }}</span>
+          <button (click)="increaseQuantity(item.pastry.id)" class="qty-btn">+</button>
+        </div>
+        <div class="item-total">
+          <p class="total-price">{{ item.pastry.price * item.quantity | currency:'EUR':'symbol':'1.2-2' }}</p>
+          <button (click)="removeItem(item.pastry.id)" class="remove-btn">Retirer</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="cart-summary">
+      <h2>Résumé de la commande</h2>
+      <div class="summary-line">
+        <span>Sous-total</span>
+        <span>{{ totalPrice | currency:'EUR':'symbol':'1.2-2' }}</span>
+      </div>
+      <div class="summary-line total">
+        <span>Total</span>
+        <span>{{ totalPrice | currency:'EUR':'symbol':'1.2-2' }}</span>
+      </div>
+      <button (click)="checkout()" class="checkout-btn">Commander</button>
+      <button (click)="continueShopping()" class="continue-btn">Continuer mes achats</button>
+      <button (click)="clearCart()" class="clear-btn">Vider le panier</button>
+    </div>
+  </div>
+</div>

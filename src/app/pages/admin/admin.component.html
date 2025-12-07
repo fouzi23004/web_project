@@ -1,0 +1,194 @@
+<div class="admin-container">
+  <h1 class="admin-title">Panneau d'Administration</h1>
+
+  <div class="tabs">
+    <button
+      [class.active]="activeTab === 'products'"
+      (click)="setActiveTab('products')"
+      class="tab-btn">
+      Produits
+    </button>
+    <button
+      [class.active]="activeTab === 'users'"
+      (click)="setActiveTab('users')"
+      class="tab-btn">
+      Utilisateurs
+    </button>
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" class="alert alert-error">{{ errorMessage }}</div>
+
+  <!-- PRODUCTS TAB -->
+  <div *ngIf="activeTab === 'products'" class="tab-content">
+    <div class="section">
+      <h2>Ajouter un Produit</h2>
+      <form class="product-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nom *</label>
+            <input type="text" [(ngModel)]="newPastry.name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label>Catégorie *</label>
+            <select [(ngModel)]="newPastry.category" name="category" required>
+              <option value="">Sélectionnez une catégorie</option>
+              <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Prix (€) *</label>
+            <input type="number" [(ngModel)]="newPastry.price" name="price" step="0.01" min="0" required>
+          </div>
+          <div class="form-group">
+            <label>Image</label>
+            <div class="image-upload-container">
+              <input type="file" #fileInput (change)="onImageUpload($event)" accept="image/*" class="file-input" id="imageUpload">
+              <label for="imageUpload" class="upload-btn">
+                📷 Choisir une image
+              </label>
+              <button *ngIf="previewImage" type="button" (click)="removeImage()" class="btn-remove-img">✖</button>
+            </div>
+            <div *ngIf="previewImage" class="image-preview">
+              <img [src]="previewImage" alt="Aperçu">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <textarea [(ngModel)]="newPastry.description" name="description" rows="3"></textarea>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label>
+            <input type="checkbox" [(ngModel)]="newPastry.topSales" name="topSales">
+            Meilleure vente
+          </label>
+        </div>
+
+        <button type="button" (click)="addPastry()" class="btn btn-primary">Ajouter le Produit</button>
+      </form>
+    </div>
+
+    <div class="section">
+      <h2>Liste des Produits</h2>
+      <div class="products-list">
+        <div *ngFor="let pastry of pastries" class="product-item">
+          <div *ngIf="editingPastry?.id === pastry.id && editingPastry" class="edit-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Nom</label>
+                <input type="text" [(ngModel)]="editingPastry!.name">
+              </div>
+              <div class="form-group">
+                <label>Catégorie</label>
+                <select [(ngModel)]="editingPastry!.category">
+                  <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Prix (€)</label>
+                <input type="number" [(ngModel)]="editingPastry!.price" step="0.01">
+              </div>
+              <div class="form-group">
+                <label>Image</label>
+                <div class="image-upload-container">
+                  <input type="file" #editFileInput (change)="onEditImageUpload($event)" accept="image/*" class="file-input" [id]="'editImageUpload' + pastry.id">
+                  <label [for]="'editImageUpload' + pastry.id" class="upload-btn">
+                    📷 Changer l'image
+                  </label>
+                  <button *ngIf="editingPastry!.image" type="button" (click)="removeEditImage()" class="btn-remove-img">✖</button>
+                </div>
+                <div *ngIf="editingPastry!.image" class="image-preview">
+                  <img [src]="editingPastry!.image" alt="Aperçu">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea [(ngModel)]="editingPastry!.description" rows="2"></textarea>
+            </div>
+            <div class="form-group checkbox-group">
+              <label>
+                <input type="checkbox" [(ngModel)]="editingPastry!.topSales">
+                Meilleure vente
+              </label>
+            </div>
+            <div class="action-buttons">
+              <button (click)="updatePastry()" class="btn btn-success">Sauvegarder</button>
+              <button (click)="cancelEdit()" class="btn btn-secondary">Annuler</button>
+            </div>
+          </div>
+
+          <div *ngIf="editingPastry?.id !== pastry.id" class="product-view">
+            <img [src]="pastry.image" [alt]="pastry.name" class="product-image">
+            <div class="product-info">
+              <h3>{{ pastry.name }}</h3>
+              <p class="category">{{ pastry.category }}</p>
+              <p class="description">{{ pastry.description }}</p>
+              <p class="price">{{ pastry.price | currency:'EUR':'symbol':'1.2-2' }}</p>
+              <span *ngIf="pastry.topSales" class="badge">Top Vente</span>
+            </div>
+            <div class="product-actions">
+              <button (click)="editPastry(pastry)" class="btn btn-edit">Modifier</button>
+              <button (click)="deletePastry(pastry.id)" class="btn btn-delete">Supprimer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- USERS TAB -->
+  <div *ngIf="activeTab === 'users'" class="tab-content">
+    <div class="section">
+      <h2>Liste des Utilisateurs</h2>
+      <div class="users-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Email</th>
+              <th>Admin</th>
+              <th>Date d'inscription</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{ user.name }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+                <span class="admin-badge" [class.is-admin]="user.isAdmin">
+                  {{ user.isAdmin ? 'Oui' : 'Non' }}
+                </span>
+              </td>
+              <td>{{ user.createdAt | date:'dd/MM/yyyy' }}</td>
+              <td class="actions">
+                <button
+                  *ngIf="user.id !== 'admin-001'"
+                  (click)="toggleAdminStatus(user)"
+                  class="btn btn-sm btn-toggle">
+                  {{ user.isAdmin ? 'Retirer Admin' : 'Rendre Admin' }}
+                </button>
+                <button
+                  *ngIf="user.id !== 'admin-001'"
+                  (click)="deleteUser(user.id)"
+                  class="btn btn-sm btn-delete">
+                  Supprimer
+                </button>
+                <span *ngIf="user.id === 'admin-001'" class="protected">Protégé</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

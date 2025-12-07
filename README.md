@@ -8,7 +8,20 @@ An Angular-based online pastry shop application converted from a static travel a
 - Responsive design with custom CSS
 - Product catalog with categories
 - Shopping cart functionality
+- User authentication with local storage
+- Admin panel for managing products and users
 - French-themed pastry shop
+
+## Admin Access
+
+To access the admin panel, use the following credentials:
+
+- **Email:** `admin@patisserie.com`
+- **Password:** `admin123`
+
+Once logged in as admin, you will see an "ADMIN" button in the navigation bar that gives you access to:
+- Product management (add, edit, delete products)
+- User management (view, delete users, manage admin privileges)
 
 ## Project Structure
 
@@ -48,6 +61,8 @@ npm start
 
 3. Open your browser and navigate to `http://localhost:4200`
 
+4. Create a user account or login with the admin credentials above
+
 ## Building for Production
 
 ```bash
@@ -70,7 +85,15 @@ The build artifacts will be stored in the `dist/` directory.
 
 ### Adding New Products
 
-Edit `src/app/services/pastry.service.ts` and add new items to the `pastries` array.
+You can add products in two ways:
+
+1. **Through Admin Panel (Recommended):**
+   - Login as admin
+   - Navigate to the ADMIN page
+   - Use the "Ajouter un Produit" form to add new products with image upload
+
+2. **Programmatically:**
+   - Edit `src/app/services/pastry.service.ts` and add new items to the `defaultPastries` array
 
 ### Changing Colors
 

@@ -1,9 +1,31 @@
 <header>
-  <h1>Pâtisserie Délice</h1>
+  <div class="header-top">
+    <h1>Pâtisserie Délice</h1>
+    <div class="user-section">
+      <div class="user-actions">
+        <a [routerLink]="'/panier'" class="cart-btn">
+          <span class="cart-icon">🛒</span>
+          <span *ngIf="cartItemCount > 0" class="cart-badge">{{ cartItemCount }}</span>
+        </a>
+        <ng-container *ngIf="currentUser; else loginButton">
+          <div class="auth-section">
+            <span class="user-name">Bonjour, {{ currentUser.name }}</span>
+            <button (click)="logout()" class="logout-btn">Déconnexion</button>
+          </div>
+        </ng-container>
+        <ng-template #loginButton>
+          <a [routerLink]="'/login'" class="login-btn">Connexion</a>
+        </ng-template>
+      </div>
+    </div>
+  </div>
   <nav>
     <ul>
       <li *ngFor="let item of menuItems">
         <a [routerLink]="item.route">{{ item.label }}</a>
+      </li>
+      <li *ngIf="isAdmin">
+        <a [routerLink]="'/admin'">ADMIN</a>
       </li>
     </ul>
   </nav>
