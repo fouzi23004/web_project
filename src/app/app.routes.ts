@@ -5,12 +5,14 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { AdminComponent } from './pages/admin/admin.component';
+import { authGuard } from './guards/auth.guard';
+import { loggedInGuard } from './guards/logged-in.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'produits', component: ProductsComponent },
-  { path: 'panier', component: CartComponent },
-  { path: 'admin', component: AdminComponent },
+  { path: 'panier', component: CartComponent, canActivate: [loggedInGuard] },
+  { path: 'admin', component: AdminComponent, canActivate: [authGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: '**', redirectTo: '' }
