@@ -4,6 +4,7 @@ import { ProductsComponent } from './pages/products/products.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { CartComponent } from './pages/cart/cart.component';
+import { OrdersComponent } from './pages/orders/orders.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { authGuard } from './guards/auth.guard';
 import { loggedInGuard } from './guards/logged-in.guard';
@@ -12,6 +13,7 @@ export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'produits', component: ProductsComponent },
   { path: 'panier', component: CartComponent, canActivate: [loggedInGuard] },
+  { path: 'commandes', component: OrdersComponent, canActivate: [loggedInGuard] },
   { path: 'admin', component: AdminComponent, canActivate: [authGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },

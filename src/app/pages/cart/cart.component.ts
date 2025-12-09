@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 import { AuthService } from '../../services/auth.service';
+import { OrderService } from '../../services/order.service';
 import { CartItem } from '../../models/cart-item.model';
 
 @Component({
@@ -20,8 +21,9 @@ export class CartComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private authService: AuthService,
+    private orderService: OrderService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isLoggedIn();
@@ -72,6 +74,32 @@ export class CartComponent implements OnInit {
   }
 
   checkout(): void {
-    alert('Fonctionnalité de paiement à venir!');
+    if (this.cartItems.length === 0) {
+      alert('Votre panier est vide!');
+      return;
+    }
+
+    const currentUser = this.authService.currentUserValue;
+    if (!currentUser) {
+      alert('Vous devez être connecté pour passer une commande');
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    // Create the order
+    const order = this.orderService.createOrder(
+      currentUser.id,
+      currentUser.name,
+      currentUser.email,
+      this.cartItems,
+      this.totalPrice
+    );
+
+    // Clear the cart
+    this.cartService.clearCart();
+
+    // Show success message and redirect
+    alert(`Commande #${order.id} créée avec succès!\nVous pouvez suivre son statut dans la section "Commandes".`);
+    this.router.navigate(['/commandes']);
   }
 }

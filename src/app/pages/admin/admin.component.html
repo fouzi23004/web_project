@@ -2,16 +2,13 @@
   <h1 class="admin-title">Panneau d'Administration</h1>
 
   <div class="tabs">
-    <button
-      [class.active]="activeTab === 'products'"
-      (click)="setActiveTab('products')"
-      class="tab-btn">
+    <button [class.active]="activeTab === 'products'" (click)="setActiveTab('products')" class="tab-btn">
       Produits
     </button>
-    <button
-      [class.active]="activeTab === 'users'"
-      (click)="setActiveTab('users')"
-      class="tab-btn">
+    <button [class.active]="activeTab === 'orders'" (click)="setActiveTab('orders')" class="tab-btn">
+      Commandes
+    </button>
+    <button [class.active]="activeTab === 'users'" (click)="setActiveTab('users')" class="tab-btn">
       Utilisateurs
     </button>
   </div>
@@ -46,7 +43,8 @@
           <div class="form-group">
             <label>Image</label>
             <div class="image-upload-container">
-              <input type="file" #fileInput (change)="onImageUpload($event)" accept="image/*" class="file-input" id="imageUpload">
+              <input type="file" #fileInput (change)="onImageUpload($event)" accept="image/*" class="file-input"
+                id="imageUpload">
               <label for="imageUpload" class="upload-btn">
                 📷 Choisir une image
               </label>
@@ -99,11 +97,13 @@
               <div class="form-group">
                 <label>Image</label>
                 <div class="image-upload-container">
-                  <input type="file" #editFileInput (change)="onEditImageUpload($event)" accept="image/*" class="file-input" [id]="'editImageUpload' + pastry.id">
+                  <input type="file" #editFileInput (change)="onEditImageUpload($event)" accept="image/*"
+                    class="file-input" [id]="'editImageUpload' + pastry.id">
                   <label [for]="'editImageUpload' + pastry.id" class="upload-btn">
                     📷 Changer l'image
                   </label>
-                  <button *ngIf="editingPastry!.image" type="button" (click)="removeEditImage()" class="btn-remove-img">✖</button>
+                  <button *ngIf="editingPastry!.image" type="button" (click)="removeEditImage()"
+                    class="btn-remove-img">✖</button>
                 </div>
                 <div *ngIf="editingPastry!.image" class="image-preview">
                   <img [src]="editingPastry!.image" alt="Aperçu">
@@ -171,16 +171,10 @@
               </td>
               <td>{{ user.createdAt | date:'dd/MM/yyyy' }}</td>
               <td class="actions">
-                <button
-                  *ngIf="user.id !== 'admin-001'"
-                  (click)="toggleAdminStatus(user)"
-                  class="btn btn-sm btn-toggle">
+                <button *ngIf="user.id !== 'admin-001'" (click)="toggleAdminStatus(user)" class="btn btn-sm btn-toggle">
                   {{ user.isAdmin ? 'Retirer Admin' : 'Rendre Admin' }}
                 </button>
-                <button
-                  *ngIf="user.id !== 'admin-001'"
-                  (click)="deleteUser(user.id)"
-                  class="btn btn-sm btn-delete">
+                <button *ngIf="user.id !== 'admin-001'" (click)="deleteUser(user.id)" class="btn btn-sm btn-delete">
                   Supprimer
                 </button>
                 <span *ngIf="user.id === 'admin-001'" class="protected">Protégé</span>
@@ -188,6 +182,85 @@
             </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDERS TAB -->
+  <div *ngIf="activeTab === 'orders'" class="tab-content">
+    <div class="section">
+      <h2>Gestion des Commandes ({{ orders.length }} commande{{ orders.length > 1 ? 's' : '' }})</h2>
+
+      <div *ngIf="orders.length === 0" class="empty-state">
+        <p>Aucune commande pour le moment</p>
+      </div>
+
+      <div *ngIf="orders.length > 0" class="orders-list">
+        <div *ngFor="let order of orders" class="order-card">
+          <div class="order-header">
+            <div class="order-info">
+              <h3>Commande #{{ order.id }}</h3>
+              <p class="order-meta">
+                <strong>Client:</strong> {{ order.userName }} ({{ order.userEmail }})<br>
+                <strong>Date:</strong> {{ order.createdAt | date:'dd/MM/yyyy à HH:mm' }}<br>
+                <strong>Dernière mise à jour:</strong> {{ order.updatedAt | date:'dd/MM/yyyy à HH:mm' }}
+              </p>
+            </div>
+            <div class="order-status">
+              <span [class]="'status-badge ' + getStatusClass(order.status)">
+                {{ getStatusLabel(order.status) }}
+              </span>
+            </div>
+          </div>
+
+          <div class="order-items">
+            <h4>Articles commandés:</h4>
+            <div *ngFor="let item of order.items" class="order-item">
+              <img [src]="item.pastry.image" [alt]="item.pastry.name" class="item-image">
+              <div class="item-details">
+                <strong>{{ item.pastry.name }}</strong>
+                <p>{{ item.pastry.category }}</p>
+                <p>Quantité: {{ item.quantity }} × {{ item.pastry.price | currency:'EUR':'symbol':'1.2-2' }}</p>
+              </div>
+              <div class="item-total">
+                {{ item.pastry.price * item.quantity | currency:'EUR':'symbol':'1.2-2' }}
+              </div>
+            </div>
+          </div>
+
+          <div class="order-footer">
+            <div class="order-total">
+              <strong>Total:</strong>
+              <span class="total-amount">{{ order.totalPrice | currency:'EUR':'symbol':'1.2-2' }}</span>
+            </div>
+
+            <div class="order-actions">
+              <button *ngIf="order.status === 'pending'" (click)="updateOrderStatus(order.id, 'confirmed')"
+                class="btn btn-confirm">
+                ✓ Confirmer
+              </button>
+              <button *ngIf="order.status === 'pending'" (click)="updateOrderStatus(order.id, 'denied')"
+                class="btn btn-deny">
+                ✗ Refuser
+              </button>
+              <button *ngIf="order.status === 'confirmed'" (click)="updateOrderStatus(order.id, 'in-preparation')"
+                class="btn btn-preparation">
+                🔄 En préparation
+              </button>
+              <button *ngIf="order.status === 'in-preparation'" (click)="updateOrderStatus(order.id, 'ready')"
+                class="btn btn-ready">
+                ✓ Prête
+              </button>
+              <button *ngIf="order.status === 'ready'" (click)="updateOrderStatus(order.id, 'delivered')"
+                class="btn btn-delivered">
+                📦 Livrée
+              </button>
+              <button (click)="deleteOrder(order.id)" class="btn btn-delete">
+                🗑️ Supprimer
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

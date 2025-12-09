@@ -16,17 +16,12 @@ export class HeaderComponent implements OnInit {
   currentUser: User | null = null;
   cartItemCount: number = 0;
   isAdmin: boolean = false;
-  menuItems = [
-    { label: 'ACCUEIL', route: '/' },
-    { label: 'PRODUITS', route: '/produits' },
-    { label: 'CONTACT', route: '/contact' }
-  ];
 
   constructor(
     private authService: AuthService,
     private cartService: CartService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.authService.currentUser$.subscribe(user => {

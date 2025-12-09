@@ -4,8 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { PastryService } from '../../services/pastry.service';
+import { OrderService } from '../../services/order.service';
 import { Pastry } from '../../models/pastry.model';
 import { User } from '../../models/user.model';
+import { Order, OrderStatus } from '../../models/order.model';
 
 @Component({
   selector: 'app-admin',
@@ -15,7 +17,7 @@ import { User } from '../../models/user.model';
   styleUrl: './admin.component.css'
 })
 export class AdminComponent implements OnInit {
-  activeTab: 'products' | 'users' = 'products';
+  activeTab: 'products' | 'users' | 'orders' = 'products';
 
   // Products
   pastries: Pastry[] = [];
@@ -33,6 +35,9 @@ export class AdminComponent implements OnInit {
   // Users
   users: User[] = [];
 
+  // Orders
+  orders: Order[] = [];
+
   // Messages
   successMessage: string = '';
   errorMessage: string = '';
@@ -42,8 +47,9 @@ export class AdminComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private pastryService: PastryService,
+    private orderService: OrderService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // Check if user is admin
@@ -54,15 +60,21 @@ export class AdminComponent implements OnInit {
     }
 
     this.loadData();
+
+    // Subscribe to order updates
+    this.orderService.orders$.subscribe(() => {
+      this.loadOrders();
+    });
   }
 
   loadData(): void {
     this.pastries = this.pastryService.getPastries();
     this.users = this.authService.getAllUsers();
     this.categories = this.pastryService.getCategories();
+    this.loadOrders();
   }
 
-  setActiveTab(tab: 'products' | 'users'): void {
+  setActiveTab(tab: 'products' | 'users' | 'orders'): void {
     this.activeTab = tab;
     this.clearMessages();
   }
@@ -241,5 +253,35 @@ export class AdminComponent implements OnInit {
     } else {
       this.errorMessage = result.message;
     }
+  }
+
+  // ===== ORDERS MANAGEMENT =====
+
+  loadOrders(): void {
+    this.orders = this.orderService.getAllOrders()
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  }
+
+  updateOrderStatus(orderId: string, status: OrderStatus): void {
+    this.clearMessages();
+    this.orderService.updateOrderStatus(orderId, status);
+    this.successMessage = `Commande mise à jour: ${this.getStatusLabel(status)}`;
+    this.loadOrders();
+  }
+
+  deleteOrder(orderId: string): void {
+    if (confirm('Voulez-vous vraiment supprimer cette commande?')) {
+      this.orderService.deleteOrder(orderId);
+      this.successMessage = 'Commande supprimée avec succès';
+      this.loadOrders();
+    }
+  }
+
+  getStatusLabel(status: OrderStatus): string {
+    return this.orderService.getOrderStatusLabel(status);
+  }
+
+  getStatusClass(status: OrderStatus): string {
+    return this.orderService.getOrderStatusClass(status);
   }
 }

@@ -1,0 +1,45 @@
+<div class="orders-container">
+  <h1 class="orders-title">Mes Commandes</h1>
+
+  <div *ngIf="orders.length === 0" class="empty-orders">
+    <div class="empty-icon">📦</div>
+    <p>Vous n'avez pas encore passé de commande</p>
+    <button (click)="goToProducts()" class="shop-btn">Découvrir nos produits</button>
+  </div>
+
+  <div *ngIf="orders.length > 0" class="orders-list">
+    <div *ngFor="let order of orders" class="order-card">
+      <div class="order-header">
+        <div class="order-info">
+          <h3 class="order-id">Commande #{{ order.id }}</h3>
+          <p class="order-date">{{ order.createdAt | date:'dd/MM/yyyy à HH:mm' }}</p>
+        </div>
+        <div class="order-status">
+          <span [class]="'status-badge ' + getStatusClass(order.status)">
+            {{ getStatusLabel(order.status) }}
+          </span>
+        </div>
+      </div>
+
+      <div class="order-items">
+        <div *ngFor="let item of order.items" class="order-item">
+          <img [src]="item.pastry.image" [alt]="item.pastry.name" class="item-image">
+          <div class="item-details">
+            <h4>{{ item.pastry.name }}</h4>
+            <p class="item-quantity">Quantité: {{ item.quantity }}</p>
+          </div>
+          <div class="item-price">
+            {{ item.pastry.price * item.quantity | currency:'EUR':'symbol':'1.2-2' }}
+          </div>
+        </div>
+      </div>
+
+      <div class="order-footer">
+        <div class="order-total">
+          <span class="total-label">Total:</span>
+          <span class="total-amount">{{ order.totalPrice | currency:'EUR':'symbol':'1.2-2' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
