@@ -21,17 +21,10 @@
   </div>
   <nav>
     <ul>
-      <li>
-        <a [routerLink]="'/'">ACCUEIL</a>
-      </li>
-      <li>
-        <a [routerLink]="'/produits'">PRODUITS</a>
-      </li>
-      <li *ngIf="!isAdmin">
-        <a [routerLink]="'/commandes'">COMMANDES</a>
-      </li>
-      <li>
-        <a [routerLink]="'/contact'">CONTACT</a>
+      <li *ngFor="let item of menuItems">
+        <a *ngIf="item.route" [routerLink]="item.route">{{ item.label }}</a>
+        <a *ngIf="!item.route && item.action === 'scrollToContact'" (click)="scrollToContact()"
+          style="cursor: pointer;">{{ item.label }}</a>
       </li>
       <li *ngIf="isAdmin">
         <a [routerLink]="'/admin'">ADMIN</a>

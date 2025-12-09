@@ -16,6 +16,11 @@ export class HeaderComponent implements OnInit {
   currentUser: User | null = null;
   cartItemCount: number = 0;
   isAdmin: boolean = false;
+  menuItems = [
+    { label: 'ACCUEIL', route: '/' },
+    { label: 'PRODUITS', route: '/produits' },
+    { label: 'CONTACT', route: null, action: 'scrollToContact' }
+  ];
 
   constructor(
     private authService: AuthService,
@@ -37,5 +42,12 @@ export class HeaderComponent implements OnInit {
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+
+  scrollToContact(): void {
+    const contactElement = document.getElementById('contact');
+    if (contactElement) {
+      contactElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 }

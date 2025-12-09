@@ -1,8 +1,20 @@
-<footer>
+<footer id="contact">
+  <div class="contact-info">
+    <div class="contact-item">
+      <span class="contact-icon">📧</span>
+      <a href="javascript:void(0)" (click)="openEmail()">contact&#64;patisserie-delice.fr</a>
+    </div>
+    <div class="contact-item">
+      <span class="contact-icon">📞</span>
+      <a href="javascript:void(0)" (click)="openPhone()">+33 1 42 85 76 93</a>
+    </div>
+    <div class="contact-item">
+      <span class="contact-icon">📍</span>
+      <span>45 Rue de la Pâtisserie, 75008 Paris, France</span>
+    </div>
+  </div>
   <p>&copy; {{ currentYear }} Pâtisserie Délice. Tous droits réservés.</p>
   <div class="social-icons">
-    <img *ngFor="let social of socialLinks"
-         [src]="social.icon"
-         [alt]="social.name" />
+    <img *ngFor="let social of socialLinks" ]="social.icon" t]="social.name" />
   </div>
 </footer>

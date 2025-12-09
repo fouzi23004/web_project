@@ -15,4 +15,12 @@ export class FooterComponent {
     { name: 'RSS', icon: 'rss.png' },
     { name: 'Twitter', icon: 'twitter.png' }
   ];
+
+  openEmail(): void {
+    window.location.href = 'mailto:contact@patisserie-delice.fr';
+  }
+
+  openPhone(): void {
+    window.location.href = 'tel:+33142857693';
+  }
 }
