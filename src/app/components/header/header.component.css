@@ -155,10 +155,17 @@ nav a {
   padding: 10px 15px;
   display: inline-block;
   transition: all 0.3s ease;
+  border-radius: 3px;
 }
 
 nav a:hover {
   color: #d2691e;
   text-decoration: underline;
   background-color: rgba(255, 255, 255, 0.3);
+}
+
+nav a.active {
+  background-color: #8b4513;
+  color: #f4e4c1;
+  text-decoration: none;
 }

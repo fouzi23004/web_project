@@ -5,6 +5,13 @@ import { AuthService } from '../../services/auth.service';
 import { CartService } from '../../services/cart.service';
 import { User } from '../../models/user.model';
 
+interface MenuItem {
+  label: string;
+  route: string | null;
+  action?: string;
+  requiresAuth?: boolean;
+}
+
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -16,9 +23,10 @@ export class HeaderComponent implements OnInit {
   currentUser: User | null = null;
   cartItemCount: number = 0;
   isAdmin: boolean = false;
-  menuItems = [
+  menuItems: MenuItem[] = [
     { label: 'ACCUEIL', route: '/' },
     { label: 'PRODUITS', route: '/produits' },
+    { label: 'MES COMMANDES', route: '/commandes', requiresAuth: true },
     { label: 'CONTACT', route: null, action: 'scrollToContact' }
   ];
 

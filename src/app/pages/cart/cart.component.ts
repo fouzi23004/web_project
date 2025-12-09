@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 import { AuthService } from '../../services/auth.service';
 import { OrderService } from '../../services/order.service';
+import { ModalService } from '../../services/modal.service';
 import { CartItem } from '../../models/cart-item.model';
 
 @Component({
@@ -22,7 +23,8 @@ export class CartComponent implements OnInit {
     private cartService: CartService,
     private authService: AuthService,
     private orderService: OrderService,
-    private router: Router
+    private router: Router,
+    private modalService: ModalService
   ) { }
 
   ngOnInit(): void {
@@ -57,14 +59,28 @@ export class CartComponent implements OnInit {
     }
   }
 
-  removeItem(pastryId: number): void {
-    if (confirm('Voulez-vous vraiment retirer cet article du panier?')) {
+  async removeItem(pastryId: number): Promise<void> {
+    const confirmed = await this.modalService.confirm(
+      'Retirer l\'article',
+      'Voulez-vous vraiment retirer cet article du panier ?',
+      'Retirer',
+      'Annuler'
+    );
+
+    if (confirmed) {
       this.cartService.removeFromCart(pastryId);
     }
   }
 
-  clearCart(): void {
-    if (confirm('Voulez-vous vraiment vider le panier?')) {
+  async clearCart(): Promise<void> {
+    const confirmed = await this.modalService.confirm(
+      'Vider le panier',
+      'Voulez-vous vraiment vider tout le panier ?',
+      'Vider',
+      'Annuler'
+    );
+
+    if (confirmed) {
       this.cartService.clearCart();
     }
   }
@@ -73,15 +89,15 @@ export class CartComponent implements OnInit {
     this.router.navigate(['/produits']);
   }
 
-  checkout(): void {
+  async checkout(): Promise<void> {
     if (this.cartItems.length === 0) {
-      alert('Votre panier est vide!');
+      await this.modalService.alert('Panier vide', 'Votre panier est vide ! Ajoutez des produits avant de commander.');
       return;
     }
 
     const currentUser = this.authService.currentUserValue;
     if (!currentUser) {
-      alert('Vous devez être connecté pour passer une commande');
+      await this.modalService.alert('Non connecté', 'Vous devez être connecté pour passer une commande.');
       this.router.navigate(['/login']);
       return;
     }
@@ -99,7 +115,10 @@ export class CartComponent implements OnInit {
     this.cartService.clearCart();
 
     // Show success message and redirect
-    alert(`Commande #${order.id} créée avec succès!\nVous pouvez suivre son statut dans la section "Commandes".`);
+    await this.modalService.alert(
+      'Commande confirmée',
+      `Commande #${order.id} créée avec succès !\n\nVous pouvez suivre son statut dans la section "Mes Commandes".`
+    );
     this.router.navigate(['/commandes']);
   }
 }

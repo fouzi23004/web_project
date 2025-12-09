@@ -5,6 +5,7 @@ import { Pastry } from '../../models/pastry.model';
 import { PastryService } from '../../services/pastry.service';
 import { CartService } from '../../services/cart.service';
 import { AuthService } from '../../services/auth.service';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
   selector: 'app-product-list',
@@ -20,7 +21,8 @@ export class ProductListComponent implements OnInit {
     private pastryService: PastryService,
     private cartService: CartService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private modalService: ModalService
   ) {}
 
   ngOnInit(): void {
@@ -30,21 +32,36 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  addToCart(pastry: Pastry): void {
+  async addToCart(pastry: Pastry): Promise<void> {
     if (!this.authService.isLoggedIn()) {
-      alert('Veuillez vous connecter pour ajouter des articles au panier');
+      await this.modalService.alert(
+        'Connexion requise',
+        'Veuillez vous connecter pour ajouter des articles au panier.'
+      );
       this.router.navigate(['/login']);
       return;
     }
 
-    const quantity = prompt(`Combien de "${pastry.name}" voulez-vous ajouter?`, '1');
+    const quantity = await this.modalService.prompt(
+      'Quantité',
+      `Combien de "${pastry.name}" voulez-vous ajouter ?`,
+      'Quantité',
+      '1'
+    );
+
     if (quantity) {
       const qty = parseInt(quantity);
       if (qty > 0) {
         this.cartService.addToCart(pastry, qty);
-        alert(`${qty} x ${pastry.name} ajouté(s) au panier!`);
+        await this.modalService.alert(
+          'Ajouté au panier',
+          `${qty} x ${pastry.name} ajouté(s) au panier !`
+        );
       } else {
-        alert('Quantité invalide');
+        await this.modalService.alert(
+          'Quantité invalide',
+          'Veuillez entrer un nombre positif.'
+        );
       }
     }
   }

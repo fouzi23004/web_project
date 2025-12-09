@@ -1,0 +1,37 @@
+<div class="modal-backdrop" *ngIf="modalConfig" (click)="onBackdropClick($event)">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h2>{{ modalConfig.title }}</h2>
+    </div>
+
+    <div class="modal-body">
+      <p>{{ modalConfig.message }}</p>
+
+      <input
+        *ngIf="modalConfig.type === 'prompt'"
+        type="text"
+        [(ngModel)]="inputValue"
+        [placeholder]="modalConfig.inputPlaceholder || ''"
+        class="modal-input"
+        (keyup.enter)="onConfirm()"
+        autofocus
+      />
+    </div>
+
+    <div class="modal-footer">
+      <button
+        *ngIf="modalConfig.type !== 'alert'"
+        class="btn-cancel"
+        (click)="onCancel()"
+      >
+        {{ modalConfig.cancelText }}
+      </button>
+      <button
+        class="btn-confirm"
+        (click)="onConfirm()"
+      >
+        {{ modalConfig.confirmText }}
+      </button>
+    </div>
+  </div>
+</div>

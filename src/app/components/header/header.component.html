@@ -22,12 +22,14 @@
   <nav>
     <ul>
       <li *ngFor="let item of menuItems">
-        <a *ngIf="item.route" [routerLink]="item.route">{{ item.label }}</a>
-        <a *ngIf="!item.route && item.action === 'scrollToContact'" (click)="scrollToContact()"
-          style="cursor: pointer;">{{ item.label }}</a>
+        <ng-container *ngIf="!item.requiresAuth || currentUser">
+          <a *ngIf="item.route" [routerLink]="item.route" routerLinkActive="active" [routerLinkActiveOptions]="{exact: item.route === '/'}">{{ item.label }}</a>
+          <a *ngIf="!item.route && item.action === 'scrollToContact'" (click)="scrollToContact()"
+            style="cursor: pointer;">{{ item.label }}</a>
+        </ng-container>
       </li>
       <li *ngIf="isAdmin">
-        <a [routerLink]="'/admin'">ADMIN</a>
+        <a [routerLink]="'/admin'" routerLinkActive="active">ADMIN</a>
       </li>
     </ul>
   </nav>

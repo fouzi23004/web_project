@@ -3,22 +3,26 @@
   margin: 0 auto;
   padding: 2rem;
   min-height: calc(100vh - 200px);
+  background-color: #fff5e1;
 }
 
 .orders-title {
   font-size: 2.5rem;
-  color: #2c3e50;
+  color: #8b4513;
   margin-bottom: 2rem;
   text-align: center;
   font-weight: 700;
+  font-family: 'Playfair Display', serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .empty-orders {
   text-align: center;
   padding: 4rem 2rem;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: linear-gradient(135deg, #f4e4c1 0%, #e6d5b8 100%);
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(139, 69, 19, 0.2);
+  border: 2px solid #d2b48c;
 }
 
 .empty-icon {
@@ -34,25 +38,29 @@
 
 .empty-orders p {
   font-size: 1.2rem;
-  color: #555;
+  color: #8b4513;
   margin-bottom: 2rem;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .shop-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+  color: #fff5e1;
   border: none;
   padding: 1rem 2rem;
   font-size: 1.1rem;
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 15px rgba(139, 69, 19, 0.4);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
 }
 
 .shop-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+  box-shadow: 0 6px 20px rgba(139, 69, 19, 0.6);
+  background: linear-gradient(135deg, #a0522d 0%, #8b4513 100%);
 }
 
 .orders-list {
@@ -64,16 +72,16 @@
 .order-card {
   background: white;
   border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 5px 20px rgba(139, 69, 19, 0.15);
   overflow: hidden;
   transition: all 0.3s ease;
-  border: 2px solid transparent;
+  border: 2px solid #d2b48c;
 }
 
 .order-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  border-color: #667eea;
+  box-shadow: 0 10px 30px rgba(139, 69, 19, 0.25);
+  border-color: #8b4513;
 }
 
 .order-header {
@@ -81,20 +89,22 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+  color: #fff5e1;
 }
 
 .order-info h3 {
   margin: 0 0 0.5rem 0;
   font-size: 1.3rem;
   font-weight: 600;
+  font-family: 'Playfair Display', serif;
 }
 
 .order-date {
   margin: 0;
   opacity: 0.9;
   font-size: 0.95rem;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .status-badge {
@@ -105,41 +115,42 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  font-family: 'Montserrat', sans-serif;
 }
 
 .status-pending {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, #daa520 0%, #cd853f 100%);
   color: white;
 }
 
 .status-confirmed {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  background: linear-gradient(135deg, #4682b4 0%, #5f9ea0 100%);
   color: white;
 }
 
 .status-preparation {
-  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  background: linear-gradient(135deg, #ff8c00 0%, #ffa500 100%);
   color: white;
 }
 
 .status-ready {
-  background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+  background: linear-gradient(135deg, #32cd32 0%, #228b22 100%);
   color: white;
 }
 
 .status-delivered {
-  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-  color: #2c3e50;
+  background: linear-gradient(135deg, #98fb98 0%, #90ee90 100%);
+  color: #2f4f2f;
 }
 
 .status-denied {
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+  background: linear-gradient(135deg, #dc143c 0%, #b22222 100%);
   color: white;
 }
 
 .order-items {
   padding: 1.5rem;
-  background: #f8f9fa;
+  background: #faf8f3;
 }
 
 .order-item {
@@ -151,6 +162,7 @@
   border-radius: 10px;
   margin-bottom: 1rem;
   transition: all 0.3s ease;
+  border: 1px solid #e6d5b8;
 }
 
 .order-item:last-child {
@@ -159,7 +171,8 @@
 
 .order-item:hover {
   transform: translateX(5px);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 10px rgba(139, 69, 19, 0.15);
+  border-color: #d2b48c;
 }
 
 .item-image {
@@ -167,7 +180,8 @@
   height: 80px;
   object-fit: cover;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(139, 69, 19, 0.2);
+  border: 2px solid #f4e4c1;
 }
 
 .item-details {
@@ -176,26 +190,30 @@
 
 .item-details h4 {
   margin: 0 0 0.5rem 0;
-  color: #2c3e50;
+  color: #8b4513;
   font-size: 1.1rem;
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
 }
 
 .item-quantity {
   margin: 0;
-  color: #666;
+  color: #a0522d;
   font-size: 0.9rem;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .item-price {
   font-weight: 700;
   font-size: 1.2rem;
-  color: #667eea;
+  color: #8b4513;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .order-footer {
   padding: 1.5rem;
   background: white;
-  border-top: 2px solid #f0f0f0;
+  border-top: 2px solid #e6d5b8;
 }
 
 .order-total {
@@ -207,22 +225,25 @@
 .total-label {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #2c3e50;
+  color: #8b4513;
+  font-family: 'Playfair Display', serif;
 }
 
 .total-amount {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #667eea;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #8b4513;
+  background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-family: 'Montserrat', sans-serif;
 }
 
 @media (max-width: 768px) {
   .orders-container {
     padding: 1rem;
+    background-color: #fff5e1;
   }
 
   .orders-title {

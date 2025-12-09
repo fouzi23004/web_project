@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { PastryService } from '../../services/pastry.service';
 import { OrderService } from '../../services/order.service';
+import { ModalService } from '../../services/modal.service';
 import { Pastry } from '../../models/pastry.model';
 import { User } from '../../models/user.model';
 import { Order, OrderStatus } from '../../models/order.model';
@@ -48,13 +49,14 @@ export class AdminComponent implements OnInit {
     private authService: AuthService,
     private pastryService: PastryService,
     private orderService: OrderService,
-    private router: Router
+    private router: Router,
+    private modalService: ModalService
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     // Check if user is admin
     if (!this.authService.isAdmin()) {
-      alert('Accès non autorisé');
+      await this.modalService.alert('Accès refusé', 'Vous n\'avez pas l\'autorisation d\'accéder à cette page.');
       this.router.navigate(['/']);
       return;
     }
@@ -134,8 +136,15 @@ export class AdminComponent implements OnInit {
     this.clearMessages();
   }
 
-  deletePastry(id: number): void {
-    if (confirm('Voulez-vous vraiment supprimer ce produit?')) {
+  async deletePastry(id: number): Promise<void> {
+    const confirmed = await this.modalService.confirm(
+      'Supprimer le produit',
+      'Êtes-vous sûr de vouloir supprimer ce produit ? Cette action est irréversible.',
+      'Supprimer',
+      'Annuler'
+    );
+
+    if (confirmed) {
       const success = this.pastryService.deletePastry(id);
 
       if (success) {
@@ -231,8 +240,15 @@ export class AdminComponent implements OnInit {
 
   // ===== USERS MANAGEMENT =====
 
-  deleteUser(userId: string): void {
-    if (confirm('Voulez-vous vraiment supprimer cet utilisateur?')) {
+  async deleteUser(userId: string): Promise<void> {
+    const confirmed = await this.modalService.confirm(
+      'Supprimer l\'utilisateur',
+      'Êtes-vous sûr de vouloir supprimer cet utilisateur ? Cette action est irréversible.',
+      'Supprimer',
+      'Annuler'
+    );
+
+    if (confirmed) {
       const result = this.authService.deleteUser(userId);
 
       if (result.success) {
@@ -269,8 +285,15 @@ export class AdminComponent implements OnInit {
     this.loadOrders();
   }
 
-  deleteOrder(orderId: string): void {
-    if (confirm('Voulez-vous vraiment supprimer cette commande?')) {
+  async deleteOrder(orderId: string): Promise<void> {
+    const confirmed = await this.modalService.confirm(
+      'Supprimer la commande',
+      'Êtes-vous sûr de vouloir supprimer cette commande ? Cette action est irréversible.',
+      'Supprimer',
+      'Annuler'
+    );
+
+    if (confirmed) {
       this.orderService.deleteOrder(orderId);
       this.successMessage = 'Commande supprimée avec succès';
       this.loadOrders();
